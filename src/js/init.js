@@ -19,3 +19,4 @@ header.init();
 modal.init();
 shade.init();
 version.init();
+switchMessage.init();

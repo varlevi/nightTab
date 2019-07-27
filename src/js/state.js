@@ -218,6 +218,7 @@ var state = (function() {
     menu: false,
     modal: false,
     autoSuggest: false,
+    switchMessage: true
   };
 
   mod.get = function() {

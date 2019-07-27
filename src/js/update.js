@@ -592,6 +592,10 @@ var update = (function() {
     "3.51.0": function(data) {
       data.state.link.add = false;
       return data;
+    },
+    "3.62.0": function(data) {
+      data.state.switchMessage = true;
+      return data;
     }
   };
 
