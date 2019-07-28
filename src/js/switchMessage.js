@@ -24,15 +24,17 @@ var switchMessage = (function() {
     var input = helper.node("input|type:checkbox,id:switch-message-input");
     var label = helper.node("label:Do not show this message again|for:switch-message-input");
     var div = helper.node("div");
-    var para1 = helper.node("p:This version of nightTab was kindly made into a Firefox addon by the good work of Abaldetti while the project was in the early stages of development. nightTab has now officially been released for Firefox.");
-    var para2 = helper.node("p:To avoid having to maintain two copies of this project this addon will not recieve any more updates. It is advisable you switch over to the official supported version.");
+    var para1 = helper.node("p:This Firefox Addon was kindly made by Abaldetti while the project was in the early stages of development. nightTab has now officially been released for Firefox.");
+    var para2 = helper.node("p:To avoid having to maintain two copies of this project this addon will not receive any more updates. It is advisable you switch over to the official supported version.");
     var para3 = helper.node("p:Be sure to backup your settings with the Export options found in the menu before making the switch.");
+    var hr = helper.node("hr");
     input.addEventListener("change", function() {
       _doNotShowAgain = this.checked;
     }, false);
     div.appendChild(para1);
     div.appendChild(para2);
     div.appendChild(para3);
+    div.appendChild(hr);
     inputWrap.appendChild(input);
     inputWrap.appendChild(label);
     fieldset.appendChild(inputWrap);
