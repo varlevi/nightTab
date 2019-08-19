@@ -603,6 +603,10 @@ var update = (function() {
         }
       };
       return data;
+    },
+    "3.75.0": function(data) {
+      data.state.switchMessage = true;
+      return data;
     }
   };
 

@@ -65,6 +65,7 @@ const jsFiles = [
   path.src + '/js/auto-suggest.js',
   path.src + '/js/pagelock.js',
   path.src + '/js/edge.js',
+  path.src + '/js/switch-message.js',
   path.src + '/js/init.js'
 ]
 
