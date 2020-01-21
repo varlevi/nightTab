@@ -6,6 +6,12 @@ const {
 
 const csso = require('gulp-csso');
 
+const autoprefixer = require('autoprefixer');
+
+const sourcemaps = require('gulp-sourcemaps');
+
+const postcss = require('gulp-postcss');
+
 const concat = require('gulp-concat');
 
 const uglify = require('gulp-uglify');
@@ -127,6 +133,7 @@ const build = {
     return src(cssFiles)
       .pipe(concat(filename.css))
       .pipe(csso())
+      .pipe(postcss([autoprefixer()]))
       .pipe(dest(path.build + '/css'))
   },
   js: function() {
