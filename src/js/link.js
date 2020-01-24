@@ -7,11 +7,13 @@ var link = (function() {
     },
     group: {
       name: null,
+      hidden: null,
       items: null
     }
   };
 
   stagedGroup.init = function() {
+    stagedGroup.group.hidden = false;
     stagedGroup.group.items = [];
   };
 
@@ -19,6 +21,7 @@ var link = (function() {
     stagedGroup.position.origin = null;
     stagedGroup.position.destination = null;
     stagedGroup.group.name = null;
+    stagedGroup.group.hidden = null;
     stagedGroup.group.items = null;
   };
 
@@ -57,6 +60,7 @@ var link = (function() {
         }
       }
     },
+    hidden: null,
     searchMatch: null
   };
 
@@ -68,6 +72,7 @@ var link = (function() {
     stagedLink.position.group.new = false;
     stagedLink.link.display = "letter";
     stagedLink.link.accent.override = false;
+    stagedLink.link.hidden = false;
     stagedLink.link.searchMatch = false;
   };
 
@@ -90,6 +95,7 @@ var link = (function() {
     stagedLink.link.accent.color.r = null;
     stagedLink.link.accent.color.g = null;
     stagedLink.link.accent.color.b = null;
+    stagedLink.link.hidden = null;
     stagedLink.link.searchMatch = null;
   };
 
@@ -111,22 +117,24 @@ var link = (function() {
       });
     },
     rainbow: function() {
-      var units = 360 / bookmarks.count();
+      var units = 360 / bookmarks.mod.count.all();
       var degree = 0;
       bookmarks.get().forEach(function(arrayItem, index) {
         arrayItem.items.forEach(function(arrayItem, index) {
-          arrayItem.accent.override = true;
-          var rgb = helper.convertColor.hsl.rgb({
-            h: degree,
-            s: 100,
-            l: 50
-          });
-          arrayItem.accent.color = {
-            r: parseInt(rgb.r, 10),
-            g: parseInt(rgb.g, 10),
-            b: parseInt(rgb.b, 10)
+          if (arrayItem.hidden) {
+            var rgb = helper.convertColor.hsl.rgb({
+              h: degree,
+              s: 100,
+              l: 50
+            });
+            arrayItem.accent.override = true;
+            arrayItem.accent.color = {
+              r: parseInt(rgb.r, 10),
+              g: parseInt(rgb.g, 10),
+              b: parseInt(rgb.b, 10)
+            };
+            degree = degree + units;
           };
-          degree = degree + units;
         });
       });
     }
@@ -462,6 +470,15 @@ var link = (function() {
       var groupFormInputLabel = helper.node("label:Name|for:group-form-input-name");
       var groupFormInputName = helper.node("input|type:text,class:group-form-input-name,id:group-form-input-name,placeholder:Example group,tabindex:1,autocomplete:off,autocorrect:off,autocapitalize:off,spellcheck:false");
 
+      // hidden
+      var hiddenFormlWrap = helper.node("div|class:form-wrap");
+      var hiddenLabel = helper.node("label|for:link-form-input-hidden");
+      var hiddenLabelText = helper.node("span:Hidden Group");
+      var hiddenLabelIcon = helper.node("span|class:label-icon");
+      var hiddenCheckbox = helper.node("input|class:link-form-input-hidden,id:link-form-input-hidden,type:checkbox,tabindex:1");
+      var hiddenInputHelper = helper.node("div|class:form-helper");
+      var hiddenInputHelperItem = helper.node("p:Hidden Groups will not be shown on the page but can be found if searched for.|class:link-form-input-hidden-helper form-helper-item");
+
       groupFormPositionInputWrap.appendChild(groupFormPositionLabel);
       groupFormPositionInputWrap.appendChild(groupFormPositionSelect);
       groupFormRandomNameButtonWrap.appendChild(groupFormRandomNameButton);
@@ -470,6 +487,14 @@ var link = (function() {
       fieldset.appendChild(groupFormNameInputWrap);
       fieldset.appendChild(groupFormRandomNameButtonWrap);
       fieldset.appendChild(groupFormPositionInputWrap);
+      fieldset.appendChild(helper.node("hr"));
+      hiddenLabel.appendChild(hiddenLabelIcon);
+      hiddenLabel.appendChild(hiddenLabelText);
+      hiddenFormlWrap.appendChild(hiddenCheckbox);
+      hiddenFormlWrap.appendChild(hiddenLabel);
+      hiddenInputHelper.appendChild(hiddenInputHelperItem);
+      fieldset.appendChild(hiddenFormlWrap);
+      fieldset.appendChild(hiddenInputHelper);
       form.appendChild(fieldset);
 
       var makeGroupOptions = function() {
@@ -485,6 +510,7 @@ var link = (function() {
       var populateForm = function() {
         groupFormPositionSelect.selectedIndex = stagedGroup.position.origin;
         groupFormInputName.value = stagedGroup.group.name;
+        hiddenCheckbox.checked = stagedGroup.group.hidden;
       };
 
       var setLastPosition = function() {
@@ -518,6 +544,9 @@ var link = (function() {
         });
         stagedGroup.group.name = randomName;
         groupFormInputName.value = randomName;
+      }, false);
+      hiddenCheckbox.addEventListener("change", function(event) {
+        stagedGroup.group.hidden = this.checked;
       }, false);
 
       return form;
@@ -782,7 +811,7 @@ var link = (function() {
       });
 
       // accent
-      var accentLabelWrap = helper.node("div|class:form-wrap");
+      var accentFormlWrap = helper.node("div|class:form-wrap");
       var accentLabel = helper.node("label:Accent colour");
       var accentGlobalRadioWrap = helper.node("div|class:form-wrap");
       var accentGlobalRadio = helper.node("input|class:link-form-input-accent-global,id:link-form-input-accent-global,type:radio,name:link-form-input-accent,tabindex:1,checked,value:global");
@@ -802,6 +831,15 @@ var link = (function() {
       var accentColorHex = helper.node("input|id:link-form-input-accent-hex,class:form-group-item-half link-form-input-accent-hex,type:text,placeholder:Hex code,value:#000000,tabindex:1,maxlength:7,disabled");
       var accentColorInputHelper = helper.node("div|class:form-helper");
       var accentColorInputHelperItem = helper.node("p:Use this colour to override the global accent colour.|class:link-form-input-accent-helper form-helper-item");
+
+      // hidden
+      var hiddenFormlWrap = helper.node("div|class:form-wrap");
+      var hiddenLabel = helper.node("label|for:link-form-input-hidden");
+      var hiddenLabelText = helper.node("span:Hidden Bookmark");
+      var hiddenLabelIcon = helper.node("span|class:label-icon");
+      var hiddenCheckbox = helper.node("input|class:link-form-input-hidden,id:link-form-input-hidden,type:checkbox,tabindex:1");
+      var hiddenInputHelper = helper.node("div|class:form-helper");
+      var hiddenInputHelperItem = helper.node("p:Hidden Bookmarks will not be shown on the page but can be found if searched for.|class:link-form-input-hidden-helper form-helper-item");
 
       groupExistingRadioWrap.appendChild(groupExistingRadio);
       groupExistingLable.appendChild(groupExistingLableIcon);
@@ -863,8 +901,8 @@ var link = (function() {
       urlInputHelper.appendChild(urlInputHelperItem);
       fieldset.appendChild(urlInputHelper);
       fieldset.appendChild(helper.node("hr"));
-      accentLabelWrap.appendChild(accentLabel);
-      fieldset.appendChild(accentLabelWrap);
+      accentFormlWrap.appendChild(accentLabel);
+      fieldset.appendChild(accentFormlWrap);
       accentGlobalRadioWrap.appendChild(accentGlobalRadio);
       accentGlobalLabel.appendChild(accentGlobalLabelIcon);
       accentGlobalLabel.appendChild(accentGlobalLabelText);
@@ -883,6 +921,15 @@ var link = (function() {
       accentColorFormIndent.appendChild(accentColorInputHelper);
       accentColorFormIndentWrap.appendChild(accentColorFormIndent);
       fieldset.appendChild(accentColorFormIndentWrap);
+      fieldset.appendChild(helper.node("hr"));
+      hiddenLabel.appendChild(hiddenLabelIcon);
+      hiddenLabel.appendChild(hiddenLabelText);
+      hiddenFormlWrap.appendChild(hiddenCheckbox);
+      hiddenFormlWrap.appendChild(hiddenLabel);
+      hiddenInputHelper.appendChild(hiddenInputHelperItem);
+      fieldset.appendChild(hiddenFormlWrap);
+      fieldset.appendChild(hiddenInputHelper);
+
       form.appendChild(fieldset);
 
       var makeGroupOptions = function() {
@@ -979,6 +1026,7 @@ var link = (function() {
           accentColorPicker.value = helper.convertColor.rgb.hex(stagedLink.link.accent.color);
           accentColorHex.value = helper.convertColor.rgb.hex(stagedLink.link.accent.color);
         };
+        hiddenCheckbox.checked = stagedLink.link.hidden;
       };
 
       makeGroupOptions();
@@ -1095,6 +1143,9 @@ var link = (function() {
         displayIconFormGroupClear.removeAttribute("disabled");
         displayIconFormGroupText.tabIndex = 1;
       }, false);
+      hiddenCheckbox.addEventListener("change", function(event) {
+        stagedLink.link.hidden = this.checked;
+      }, false);
       autoSuggest.bind.input({
         input: displayIconInput,
         type: "fontawesomeIcon",
@@ -1168,7 +1219,9 @@ var link = (function() {
           stagedLink.position.origin.group = index;
           stagedLink.position.destination.group = index;
           group = render.group.area();
-          if (arrayItem.items.length > 0) {
+          if (bookmarks.mod.count.group({
+              index: index
+            }) > 0 && !state.get.current().search) {
             arrayItem.items.forEach(function(arrayItem, index) {
               stagedLink.link = JSON.parse(JSON.stringify(arrayItem));
               stagedLink.position.origin.item = index;
@@ -1180,7 +1233,22 @@ var link = (function() {
                   group.querySelector(".group-body").appendChild(render.item.link());
                 };
               } else {
-                group.querySelector(".group-body").appendChild(render.item.link());
+                if (!stagedLink.link.hidden) {
+                  group.querySelector(".group-body").appendChild(render.item.link());
+                }
+              };
+            });
+          } else if (state.get.current().search) {
+            arrayItem.items.forEach(function(arrayItem, index) {
+              stagedLink.link = JSON.parse(JSON.stringify(arrayItem));
+              stagedLink.position.origin.item = index;
+              stagedLink.position.destination.item = index;
+              stagedLink.position.group.new = null;
+              stagedLink.position.group.name = null;
+              if (state.get.current().search) {
+                if (stagedLink.link.searchMatch) {
+                  group.querySelector(".group-body").appendChild(render.item.link());
+                };
               };
             });
           } else {
@@ -1188,10 +1256,17 @@ var link = (function() {
           };
           if (state.get.current().search) {
             if (search.mod.searching.count.group(index) > 0) {
-              linkSection.appendChild(group);
+              if (bookmarks.mod.count.group({
+                  includeHidden: true,
+                  index: 0
+                }) > 0) {
+                linkSection.appendChild(group);
+              }
             };
           } else {
-            linkSection.appendChild(group);
+            if (!stagedGroup.group.hidden) {
+              linkSection.appendChild(group);
+            };
           };
           stagedGroup.reset();
           stagedLink.reset();
@@ -1207,7 +1282,7 @@ var link = (function() {
       }
     };
     // if bookmarks exist
-    if (bookmarks.get().length > 0) {
+    if (bookmarks.mod.count.all() > 0) {
       // if searching
       if (state.get.current().search) {
         search.mod.searching.get();

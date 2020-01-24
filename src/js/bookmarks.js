@@ -4,6 +4,7 @@ var bookmarks = (function() {
 
   mod.all = [{
     name: "Cool stuff",
+    hidden: true,
     items: [{
       display: "icon",
       letter: "AS",
@@ -22,6 +23,7 @@ var bookmarks = (function() {
           b: null
         }
       },
+      hidden: false,
       searchMatch: false,
       timeStamp: 1546453104010
     }, {
@@ -42,6 +44,7 @@ var bookmarks = (function() {
           b: null
         }
       },
+      hidden: false,
       searchMatch: false,
       timeStamp: 1546453107633
     }, {
@@ -62,6 +65,7 @@ var bookmarks = (function() {
           b: null
         }
       },
+      hidden: false,
       searchMatch: false,
       timeStamp: 1546453110265
     }, {
@@ -82,6 +86,7 @@ var bookmarks = (function() {
           b: null
         }
       },
+      hidden: false,
       searchMatch: false,
       timeStamp: 1546453111491
     }, {
@@ -102,6 +107,7 @@ var bookmarks = (function() {
           b: null
         }
       },
+      hidden: false,
       searchMatch: false,
       timeStamp: 1546453104460
     }, {
@@ -122,11 +128,13 @@ var bookmarks = (function() {
           b: null
         }
       },
+      hidden: false,
       searchMatch: false,
       timeStamp: 1546453111953
     }]
   }, {
     name: "Dev sites",
+    hidden: false,
     items: [{
       display: "icon",
       letter: "DEV",
@@ -145,6 +153,7 @@ var bookmarks = (function() {
           b: null
         }
       },
+      hidden: false,
       searchMatch: false,
       timeStamp: 1546453101749
     }, {
@@ -165,6 +174,7 @@ var bookmarks = (function() {
           b: null
         }
       },
+      hidden: false,
       searchMatch: false,
       timeStamp: 1546453108926
     }]
@@ -301,16 +311,50 @@ var bookmarks = (function() {
     }
   };
 
-  mod.count = function() {
-    var count = 0;
-    mod.all.forEach(function(arrayItem, index) {
-      count = count + arrayItem.items.length
-    });
-    return count;
-  };
-
-  var count = function() {
-    return mod.count();
+  mod.count = {
+    all: function(override) {
+      var options = {
+        includeHidden: null
+      };
+      if (override) {
+        options = helper.applyOptions(options, override);
+      };
+      var count = 0;
+      mod.all.forEach(function(arrayItem, index) {
+        arrayItem.items.forEach(function(arrayItem, index) {
+          if (options.includeHidden) {
+            count = count + 1;
+          } else {
+            if (!arrayItem.hidden) {
+              count = count + 1;
+            };
+          };
+        });
+      });
+      return count;
+    },
+    group: function(override) {
+      var options = {
+        index: null,
+        includeHidden: null
+      };
+      if (override) {
+        options = helper.applyOptions(options, override);
+      };
+      var count = 0;
+      if (mod.all[options.index]) {
+        mod.all[options.index].items.forEach(function(arrayItem, index) {
+          if (options.includeHidden) {
+            count = count + 1;
+          } else {
+            if (!arrayItem.hidden) {
+              count = count + 1;
+            };
+          };
+        });
+      };
+      return count;
+    }
   };
 
   var get = function(data) {
@@ -342,7 +386,6 @@ var bookmarks = (function() {
     mod: mod,
     get: get,
     sort: sort,
-    count: count,
     remove: remove
   };
 
