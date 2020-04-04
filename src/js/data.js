@@ -230,12 +230,17 @@ var data = (function() {
       nighttab: true,
       version: version.get().number,
       state: state.get.current(),
-      bookmarks: bookmarks.get()
+      bookmarks: bookmarks.get(),
+      snapshot: snapshot.get()
     }));
   };
 
   var load = function() {
-    return JSON.parse(mod.get(_saveName));
+    if (mod.get(_saveName) != null && mod.get(_saveName) != undefined) {
+      return JSON.parse(mod.get(_saveName));
+    } else {
+      return false;
+    };
   };
 
   var wipe = function() {
