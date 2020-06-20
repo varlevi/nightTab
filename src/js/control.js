@@ -359,7 +359,7 @@ var control = (function() {
           path: "layout.width",
           type: "range",
           valueModify: {
-            min: 10,
+            min: 2,
             max: 100
           },
           mirrorElement: [{
@@ -415,7 +415,7 @@ var control = (function() {
           path: "layout.width",
           type: "number",
           valueModify: {
-            min: 10,
+            min: 2,
             max: 100
           },
           mirrorElement: [{

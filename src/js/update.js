@@ -1106,8 +1106,8 @@ var update = (function() {
     "5.46.0": function(data) {
       data.bookmarks.forEach(function(arrayItem, index) {
         arrayItem.items.forEach(function(arrayItem, index) {
-          arrayItem.wide = false;
-          arrayItem.tall = false;
+          arrayItem.column = 3;
+          arrayItem.row = 2;
         });
       });
       data.state.link.breakpoint = "xs";

@@ -50,8 +50,8 @@ var bookmarks = (function() {
         }
       },
       image: "",
-      wide: false,
-      tall: false,
+      column: 3,
+      row: 2,
       searchMatch: false,
       timeStamp: 1546453104010
     }, {
@@ -94,8 +94,8 @@ var bookmarks = (function() {
         }
       },
       image: "",
-      wide: false,
-      tall: false,
+      column: 3,
+      row: 2,
       searchMatch: false,
       timeStamp: 1546453107633
     }, {
@@ -138,8 +138,8 @@ var bookmarks = (function() {
         }
       },
       image: "",
-      wide: false,
-      tall: false,
+      column: 3,
+      row: 2,
       searchMatch: false,
       timeStamp: 1546453110265
     }, {
@@ -182,8 +182,8 @@ var bookmarks = (function() {
         }
       },
       image: "",
-      wide: false,
-      tall: false,
+      column: 3,
+      row: 2,
       searchMatch: false,
       timeStamp: 1546453111491
     }, {
@@ -226,8 +226,8 @@ var bookmarks = (function() {
         }
       },
       image: "",
-      wide: false,
-      tall: false,
+      column: 3,
+      row: 2,
       searchMatch: false,
       timeStamp: 1546453104460
     }, {
@@ -270,8 +270,8 @@ var bookmarks = (function() {
         }
       },
       image: "",
-      wide: false,
-      tall: false,
+      column: 3,
+      row: 2,
       searchMatch: false,
       timeStamp: 1546453111953
     }]
@@ -323,8 +323,8 @@ var bookmarks = (function() {
         }
       },
       image: "",
-      wide: false,
-      tall: false,
+      column: 3,
+      row: 2,
       searchMatch: false,
       timeStamp: 1546453101749
     }, {
@@ -367,8 +367,8 @@ var bookmarks = (function() {
         }
       },
       image: "",
-      wide: false,
-      tall: false,
+      column: 3,
+      row: 2,
       searchMatch: false,
       timeStamp: 1546453108926
     }]

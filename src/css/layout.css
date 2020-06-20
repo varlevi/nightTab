@@ -1,6 +1,7 @@
 .layout {
   position: relative;
-  width: var(--layout-width);
+  width: calc(var(--layout-width) * 4em);
+  max-width: 100%;
   font-size: calc(1em * var(--layout-size));
   flex-wrap: nowrap;
 }

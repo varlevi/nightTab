@@ -96,8 +96,8 @@ var link = (function() {
         }
       },
       image: null,
-      wide: null,
-      tall: null,
+      column: null,
+      row: null,
       timeStamp: null,
       searchMatch: null
     }
@@ -135,8 +135,8 @@ var link = (function() {
     stagedLink.link.color.rgb.g = 0;
     stagedLink.link.color.rgb.b = 0;
     stagedLink.link.image = "";
-    stagedLink.link.wide = false;
-    stagedLink.link.tall = false;
+    stagedLink.link.column = 5;
+    stagedLink.link.row = 4;
     stagedLink.link.searchMatch = false;
   };
 
@@ -172,8 +172,8 @@ var link = (function() {
     stagedLink.link.color.rgb.g = null;
     stagedLink.link.color.rgb.b = null;
     stagedLink.link.image = null;
-    stagedLink.link.wide = null;
-    stagedLink.link.tall = null;
+    stagedLink.link.column = null;
+    stagedLink.link.row = null;
     stagedLink.link.searchMatch = null;
     stagedLink.link.timeStamp = null;
   };
@@ -976,16 +976,8 @@ var link = (function() {
         tag: "div",
         attr: [{
           key: "class",
-          value: "link-item"
+          value: "link-item link-item-column-" + stagedLink.link.column + " link-item-row-" + stagedLink.link.row
         }]
-      };
-      if (stagedLink.link.accent.by == "custom" || stagedLink.link.color.by == "custom" || helper.checkIfValidString(stagedLink.link.image) || stagedLink.link.wide || stagedLink.link.tall) {
-        if (stagedLink.link.wide) {
-          linkItemOptions.attr[0].value = linkItemOptions.attr[0].value + " link-item-wide";
-        };
-        if (stagedLink.link.tall) {
-          linkItemOptions.attr[0].value = linkItemOptions.attr[0].value + " link-item-tall";
-        };
       };
       if (stagedLink.link.accent.by == "custom" || stagedLink.link.color.by == "custom" || helper.checkIfValidString(stagedLink.link.image)) {
         linkItemOptions.attr.push({
@@ -1203,9 +1195,9 @@ var link = (function() {
       // group existing
       var groupExistingRadioWrap = helper.node("div|class:form-wrap");
       var groupExistingRadio = helper.node("input|class:link-form-input-group-existing,id:link-form-input-group-existing,type:radio,name:link-form-input-group,tabindex:1,checked,value:existing");
-      var groupExistingLable = helper.node("label|for:link-form-input-group-existing");
-      var groupExistingLableText = helper.node("span:Existing Group");
-      var groupExistingLableIcon = helper.node("span|class:label-icon");
+      var groupExistingLabel = helper.node("label|for:link-form-input-group-existing");
+      var groupExistingLabelText = helper.node("span:Existing Group");
+      var groupExistingLabelIcon = helper.node("span|class:label-icon");
       var groupExistingFormIndentWrap = helper.node("div|class:form-wrap");
       var groupExistingFormIndent = helper.node("div|class:form-indent");
       var groupExistingGroupInputWrap = helper.node("div|class:form-wrap");
@@ -1217,9 +1209,9 @@ var link = (function() {
       // group new
       var groupNewRadioWrap = helper.node("div|class:form-wrap");
       var groupNewRadio = helper.node("input|class:link-form-input-group-new,id:link-form-input-group-new,type:radio,name:link-form-input-group,tabindex:1,value:new");
-      var groupNewLable = helper.node("label|for:link-form-input-group-new");
-      var groupNewLableLableText = helper.node("span:New Group");
-      var groupNewLableLableIcon = helper.node("span|class:label-icon");
+      var groupNewLabel = helper.node("label|for:link-form-input-group-new");
+      var groupNewLabelLabelText = helper.node("span:New Group");
+      var groupNewLabelLabelIcon = helper.node("span|class:label-icon");
       var groupNewFormIndentWrap = helper.node("div|class:form-wrap");
       var groupNewFormIndent = helper.node("div|class:form-indent");
       var groupNewInputWrap = helper.node("div|class:form-wrap");
@@ -1230,9 +1222,9 @@ var link = (function() {
       // letter
       var displayLetterRadioWrap = helper.node("div|class:form-wrap");
       var displayLetterRadio = helper.node("input|class:link-form-input-display-letter,id:link-form-input-display-letter,type:radio,name:link-form-input-display,tabindex:1,checked,value:letter");
-      var displayLetterLable = helper.node("label|for:link-form-input-display-letter");
-      var displayLetterLableText = helper.node("span:Letters");
-      var displayLetterLableIcon = helper.node("span|class:label-icon");
+      var displayLetterLabel = helper.node("label|for:link-form-input-display-letter");
+      var displayLetterLabelText = helper.node("span:Letters");
+      var displayLetterLabelIcon = helper.node("span|class:label-icon");
       var displayLetterFormIndentWrap = helper.node("div|class:form-wrap");
       var displayLetterFormIndent = helper.node("div|class:form-indent");
       var displayLetterInputWrap = helper.node("div|class:form-wrap");
@@ -1241,9 +1233,9 @@ var link = (function() {
       // icon
       var displayIconRadiotWrap = helper.node("div|class:form-wrap");
       var displayIconRadio = helper.node("input|class:link-form-input-display-icon,id:link-form-input-display-icon,type:radio,name:link-form-input-display,tabindex:1,value:icon");
-      var displayIconLable = helper.node("label|for:link-form-input-display-icon");
-      var displayIconLableText = helper.node("span:Icon");
-      var displayIconLableIcon = helper.node("span|class:label-icon");
+      var displayIconLabel = helper.node("label|for:link-form-input-display-icon");
+      var displayIconLabelText = helper.node("span:Icon");
+      var displayIconLabelIcon = helper.node("span|class:label-icon");
       var displayIconFormIndentWrap = helper.node("div|class:form-wrap");
       var displayIconFormIndent = helper.node("div|class:form-indent");
       var displayIconInputWrap = helper.node("div|class:form-wrap");
@@ -1258,9 +1250,9 @@ var link = (function() {
       // image
       var displayImageRadiotWrap = helper.node("div|class:form-wrap");
       var displayImageRadio = helper.node("input|class:link-form-input-display-image,id:link-form-input-display-image,type:radio,name:link-form-input-display,tabindex:1,value:image");
-      var displayImageLable = helper.node("label|for:link-form-input-display-image");
-      var displayImageLableText = helper.node("span:Image");
-      var displayImageLableIcon = helper.node("span|class:label-icon");
+      var displayImageLabel = helper.node("label|for:link-form-input-display-image");
+      var displayImageLabelText = helper.node("span:Image");
+      var displayImageLabelIcon = helper.node("span|class:label-icon");
       var displayImageFormIndentWrap = helper.node("div|class:form-wrap");
       var displayImageFormIndent = helper.node("div|class:form-indent");
       var displayImageInputWrap = helper.node("div|class:form-wrap");
@@ -1422,28 +1414,40 @@ var link = (function() {
         }]
       });
 
-      // wide
-      var wideInputWrap = helper.node("div|class:form-wrap");
-      var wideLabel = helper.node("label|for:link-form-wide");
-      var wideLabelBlock = helper.node("span|class:label-block");
-      var wideLabelBlockItem1 = helper.node("span:Wide tile|class:label-block-item");
-      var wideLabelBlockItem2 = helper.node("span:Bookmark tile to take up two column spaces.|class:label-block-item small muted");
-      var wideLabelIcon = helper.node("span|class:label-icon");
-      var wideInput = helper.node("input|type:checkbox,class:link-form-wide,id:link-form-wide,tabindex:1");
+      // column
+      var columnWrap = helper.node("div|class:form-wrap");
+      var columnLabel = helper.node("label:Columns|for:link-form-column");
+      var columnSelect = helper.node("select|id:link-form-column,class:link-form-column,tabindex:1");
+      var columnOption1 = helper.node("option:1|value:1");
+      var columnOption2 = helper.node("option:2|value:2");
+      var columnOption3 = helper.node("option:3|value:3");
+      var columnOption4 = helper.node("option:4|value:4");
+      var columnOption5 = helper.node("option:5|value:5");
+      var columnOption6 = helper.node("option:6|value:6");
+      var columnOption7 = helper.node("option:7|value:7");
+      var columnOption8 = helper.node("option:8|value:8");
+      var columnOption9 = helper.node("option:9|value:9");
+      var columnOption10 = helper.node("option:10|value:10");
 
-      // tall
-      var tallInputWrap = helper.node("div|class:form-wrap");
-      var tallLabel = helper.node("label|for:link-form-tall");
-      var tallLabelBlock = helper.node("span|class:label-block");
-      var tallLabelBlockItem1 = helper.node("span:Tall tile|class:label-block-item");
-      var tallLabelBlockItem2 = helper.node("span:Bookmark tile to take up two row spaces.|class:label-block-item small muted");
-      var tallLabelIcon = helper.node("span|class:label-icon");
-      var tallInput = helper.node("input|type:checkbox,class:link-form-tall,id:link-form-tall,tabindex:1");
+      // row
+      var rowWrap = helper.node("div|class:form-wrap");
+      var rowLabel = helper.node("label:Rows|for:link-form-row");
+      var rowSelect = helper.node("select|id:link-form-row,class:link-form-row,tabindex:1");
+      var rowOption1 = helper.node("option:1|value:1");
+      var rowOption2 = helper.node("option:2|value:2");
+      var rowOption3 = helper.node("option:3|value:3");
+      var rowOption4 = helper.node("option:4|value:4");
+      var rowOption5 = helper.node("option:5|value:5");
+      var rowOption6 = helper.node("option:6|value:6");
+      var rowOption7 = helper.node("option:7|value:7");
+      var rowOption8 = helper.node("option:8|value:8");
+      var rowOption9 = helper.node("option:9|value:9");
+      var rowOption10 = helper.node("option:10|value:10");
 
       groupExistingRadioWrap.appendChild(groupExistingRadio);
-      groupExistingLable.appendChild(groupExistingLableIcon);
-      groupExistingLable.appendChild(groupExistingLableText);
-      groupExistingRadioWrap.appendChild(groupExistingLable);
+      groupExistingLabel.appendChild(groupExistingLabelIcon);
+      groupExistingLabel.appendChild(groupExistingLabelText);
+      groupExistingRadioWrap.appendChild(groupExistingLabel);
       groupExistingGroupInputWrap.appendChild(groupExistingGroup);
       groupExistingPositionInputWrap.appendChild(groupExistingPositionLabel);
       groupExistingPositionInputWrap.appendChild(groupExistingPosition);
@@ -1454,9 +1458,9 @@ var link = (function() {
       fieldset.appendChild(groupExistingFormIndentWrap);
 
       groupNewRadioWrap.appendChild(groupNewRadio);
-      groupNewLable.appendChild(groupNewLableLableIcon);
-      groupNewLable.appendChild(groupNewLableLableText);
-      groupNewRadioWrap.appendChild(groupNewLable);
+      groupNewLabel.appendChild(groupNewLabelLabelIcon);
+      groupNewLabel.appendChild(groupNewLabelLabelText);
+      groupNewRadioWrap.appendChild(groupNewLabel);
       groupNewInputWrap.appendChild(groupNewInput);
       groupNewRandomNameButtonWrap.appendChild(groupNewRandomNameButton);
       groupNewFormIndent.appendChild(groupNewInputWrap);
@@ -1468,18 +1472,18 @@ var link = (function() {
       fieldset.appendChild(helper.node("hr"));
 
       displayLetterRadioWrap.appendChild(displayLetterRadio);
-      displayLetterLable.appendChild(displayLetterLableIcon);
-      displayLetterLable.appendChild(displayLetterLableText);
-      displayLetterRadioWrap.appendChild(displayLetterLable);
+      displayLetterLabel.appendChild(displayLetterLabelIcon);
+      displayLetterLabel.appendChild(displayLetterLabelText);
+      displayLetterRadioWrap.appendChild(displayLetterLabel);
       fieldset.appendChild(displayLetterRadioWrap);
       displayLetterInputWrap.appendChild(displayLetterInput);
       displayLetterFormIndent.appendChild(displayLetterInputWrap);
       displayLetterFormIndentWrap.appendChild(displayLetterFormIndent);
       fieldset.appendChild(displayLetterFormIndentWrap);
       displayIconRadiotWrap.appendChild(displayIconRadio);
-      displayIconLable.appendChild(displayIconLableIcon);
-      displayIconLable.appendChild(displayIconLableText);
-      displayIconRadiotWrap.appendChild(displayIconLable);
+      displayIconLabel.appendChild(displayIconLabelIcon);
+      displayIconLabel.appendChild(displayIconLabelText);
+      displayIconRadiotWrap.appendChild(displayIconLabel);
       fieldset.appendChild(displayIconRadiotWrap);
       displayIconFormGroupClear.appendChild(displayIconFormGroupClearIcon);
       displayIconFormGroup.appendChild(displayIconInput);
@@ -1492,9 +1496,9 @@ var link = (function() {
       displayIconFormIndentWrap.appendChild(displayIconFormIndent);
       fieldset.appendChild(displayIconFormIndentWrap);
       displayImageRadiotWrap.appendChild(displayImageRadio);
-      displayImageLable.appendChild(displayImageLableIcon);
-      displayImageLable.appendChild(displayImageLableText);
-      displayImageRadiotWrap.appendChild(displayImageLable);
+      displayImageLabel.appendChild(displayImageLabelIcon);
+      displayImageLabel.appendChild(displayImageLabelText);
+      displayImageRadiotWrap.appendChild(displayImageLabel);
       displayImageFormIndentWrap.appendChild(displayImageFormIndent);
       displayImageInputWrap.appendChild(displayImageInput);
       displayImageFormIndent.appendChild(displayImageInputWrap);
@@ -1665,21 +1669,33 @@ var link = (function() {
 
       fieldset.appendChild(helper.node("hr"));
 
-      wideInputWrap.appendChild(wideInput);
-      wideLabel.appendChild(wideLabelIcon);
-      wideLabelBlock.appendChild(wideLabelBlockItem1);
-      wideLabelBlock.appendChild(wideLabelBlockItem2);
-      wideLabel.appendChild(wideLabelBlock);
-      wideInputWrap.appendChild(wideLabel);
-      fieldset.appendChild(wideInputWrap);
+      columnSelect.appendChild(columnOption1);
+      columnSelect.appendChild(columnOption2);
+      columnSelect.appendChild(columnOption3);
+      columnSelect.appendChild(columnOption4);
+      columnSelect.appendChild(columnOption5);
+      columnSelect.appendChild(columnOption6);
+      columnSelect.appendChild(columnOption7);
+      columnSelect.appendChild(columnOption8);
+      columnSelect.appendChild(columnOption9);
+      columnSelect.appendChild(columnOption10);
+      columnWrap.appendChild(columnLabel);
+      columnWrap.appendChild(columnSelect);
+      fieldset.appendChild(columnWrap);
 
-      tallInputWrap.appendChild(tallInput);
-      tallLabel.appendChild(tallLabelIcon);
-      tallLabelBlock.appendChild(tallLabelBlockItem1);
-      tallLabelBlock.appendChild(tallLabelBlockItem2);
-      tallLabel.appendChild(tallLabelBlock);
-      tallInputWrap.appendChild(tallLabel);
-      fieldset.appendChild(tallInputWrap);
+      rowSelect.appendChild(rowOption1);
+      rowSelect.appendChild(rowOption2);
+      rowSelect.appendChild(rowOption3);
+      rowSelect.appendChild(rowOption4);
+      rowSelect.appendChild(rowOption5);
+      rowSelect.appendChild(rowOption6);
+      rowSelect.appendChild(rowOption7);
+      rowSelect.appendChild(rowOption8);
+      rowSelect.appendChild(rowOption9);
+      rowSelect.appendChild(rowOption10);
+      rowWrap.appendChild(rowLabel);
+      rowWrap.appendChild(rowSelect);
+      fieldset.appendChild(rowWrap);
 
       form.appendChild(fieldset);
 
@@ -1917,12 +1933,8 @@ var link = (function() {
         accentRgbBRange.value = stagedLink.link.accent.rgb.b;
         accentRgbBNumber.value = stagedLink.link.accent.rgb.b;
         imageInput.value = stagedLink.link.image;
-        if (stagedLink.link.wide) {
-          wideInput.checked = true;
-        };
-        if (stagedLink.link.tall) {
-          tallInput.checked = true;
-        };
+        columnSelect.value = stagedLink.link.column;
+        rowSelect.value = stagedLink.link.row;
       };
 
       var mirror = {
@@ -2565,11 +2577,11 @@ var link = (function() {
       imageInput.addEventListener("input", function(event) {
         stagedLink.link.image = this.value;
       }, false);
-      wideInput.addEventListener("change", function(event) {
-        stagedLink.link.wide = this.checked;
+      columnSelect.addEventListener("change", function(event) {
+        stagedLink.link.column = parseInt(columnSelect.value, 10);
       }, false);
-      tallInput.addEventListener("change", function(event) {
-        stagedLink.link.tall = this.checked;
+      rowSelect.addEventListener("change", function(event) {
+        stagedLink.link.row = parseInt(rowSelect.value, 10);
       }, false);
       autoSuggest.bind.input({
         input: displayIconInput,

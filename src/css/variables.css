@@ -137,7 +137,7 @@
 
   /* layout */
   --layout-size:                                        1;
-  --layout-width:                                       80%;
+  --layout-width:                                       80;
   --layout-line-width:                                  0.2em;
   --layout-space:                                       0.5em;
   --layout-padding:                                     4;
@@ -408,6 +408,15 @@
   --link-item-height:                                   10em;
   --link-item-url-height:                               2.25em;
   --link-item-edit-height:                              5em;
+}
+
+.is-link-breakpoint-md.is-link-style-block,
+.is-link-breakpoint-lg.is-link-style-block,
+.is-link-breakpoint-xl.is-link-style-block,
+.is-link-breakpoint-xxl.is-link-style-block {
+  /* link */
+  --link-item-width:                                  4em;
+  --link-item-height:                                 4em;
 }
 
 .is-link-style-list {

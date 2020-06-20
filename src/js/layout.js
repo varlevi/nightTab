@@ -4,7 +4,7 @@ var layout = (function() {
 
   render.width = function() {
     var html = helper.e("html");
-    html.style.setProperty("--layout-width", state.get.current().layout.width + "%");
+    html.style.setProperty("--layout-width", state.get.current().layout.width);
   };
 
   render.padding = function() {

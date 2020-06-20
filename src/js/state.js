@@ -210,13 +210,13 @@ var state = (function() {
           visual: {
             show: true,
             letter: {
-              size: 3
+              size: 2
             },
             icon: {
-              size: 3
+              size: 2
             },
             image: {
-              size: 3
+              size: 2
             },
             shadow: {
               size: 0
@@ -224,12 +224,12 @@ var state = (function() {
           },
           name: {
             show: true,
-            size: 0.9
+            size: 0.8
           },
           gutter: 2,
           direction: "vertical",
           order: "visualname",
-          alignment: "centercenter",
+          alignment: "bottomleft",
           rotate: 0,
           translate: {
             x: 0,
@@ -284,7 +284,7 @@ var state = (function() {
       padding: 4,
       gutter: 2,
       size: 1,
-      width: 80,
+      width: 20,
       scrollPastEnd: false,
       scrollbars: "auto",
       title: ""
@@ -460,20 +460,20 @@ var state = (function() {
         display: {
           visual: {
             letter: {
-              size: 3
+              size: 2
             },
             icon: {
-              size: 3
+              size: 2
             },
             image: {
-              size: 3
+              size: 2
             },
             shadow: {
               size: 0
             }
           },
           name: {
-            size: 0.9
+            size: 0.8
           },
           gutter: 2,
           rotate: 0,
@@ -500,7 +500,7 @@ var state = (function() {
       padding: 4,
       gutter: 2,
       size: 1,
-      width: 80,
+      width: 20,
       title: ""
     },
     theme: {
